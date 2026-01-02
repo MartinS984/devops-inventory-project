@@ -1,0 +1,15 @@
+# Dependencies
+node_modules/
+
+# Environment variables (Secrets)
+.env
+
+# Docker
+docker-compose.override.yml
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Logs
+npm-debug.log*
