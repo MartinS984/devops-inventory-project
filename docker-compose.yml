@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  # Service 1: The Database
+  db:
+    image: postgres:15-alpine
+    container_name: inventory-db
+    environment:
+      POSTGRES_USER: user123
+      POSTGRES_PASSWORD: password123
+      POSTGRES_DB: inventory_db
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432" # Optional: exposes DB to your local PC tools (like pgAdmin)
+
+  # Service 2: Your Node Backend
+  backend:
+    build: .             # Builds the Dockerfile in the current directory
+    container_name: inventory-backend
+    ports:
+      - "5000:5000"
+    environment:
+      - DB_HOST=db       # Uses the service name "db" to connect
+      - DB_USER=user123
+      - DB_PASS=password123
+      - DB_NAME=inventory_db
+      - PORT=5000
+    depends_on:
+      - db               # Ensures DB starts before the app
+
+# Docker Volumes (Persist data even if containers are destroyed)
+volumes:
+  db-data:
