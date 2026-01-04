@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - name: backend
+          image: inventory-backend:v1  # Must match your local tag exactly
+          imagePullPolicy: Never       # CRITICAL: Forces K8s to use the local image
+          ports:
+            - containerPort: 5000
+          env:
+            - name: PORT
+              value: "5000"
+            - name: DB_HOST
+              value: "db"              # Matches the 'name' in postgres.yaml Service
+            - name: DB_NAME
+              value: "inventory_db"
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: user
+            - name: DB_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: password
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+spec:
+  type: NodePort  # Exposes the service outside the cluster (for testing)
+  selector:
+    app: backend
+  ports:
+    - protocol: TCP
+      port: 5000       # The port the cluster uses internally
+      targetPort: 5000 # The port the container is listening on
+      nodePort: 30001  # Static port so we can access it easily from Windows
