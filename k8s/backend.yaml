@@ -14,8 +14,8 @@ spec:
     spec:
       containers:
         - name: backend
-          image: inventory-backend:v1  # Must match your local tag exactly
-          imagePullPolicy: Never       # CRITICAL: Forces K8s to use the local image
+          image: martins984/inventory-backend:latest  # Must match your local tag exactly
+          imagePullPolicy: Always       # CRITICAL: Forces K8s to use the local image
           ports:
             - containerPort: 5000
           env:

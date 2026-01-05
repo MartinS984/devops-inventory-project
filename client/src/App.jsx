@@ -17,7 +17,7 @@ function App() {
 
   return (
     <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
-      <h1>DevOps Inventory Manager</h1>
+      <h1>DevOps Inventory Manager - v2.0 🚀</h1>
       <div style={{ border: '1px solid #ccc', padding: '10px', borderRadius: '5px' }}>
         <h3>System Status</h3>
         <p><strong>Backend:</strong> {status}</p>

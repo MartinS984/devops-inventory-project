@@ -14,8 +14,8 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: inventory-frontend:v1 # Uses the image inside Minikube
-          imagePullPolicy: Never       # Critical for local dev
+          image: martins984/inventory-frontend:latest # Uses the image inside Minikube
+          imagePullPolicy: Always
           ports:
             - containerPort: 80        # Nginx listens on 80
 ---
