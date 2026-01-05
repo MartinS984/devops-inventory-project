@@ -5,7 +5,7 @@ metadata:
 spec:
   rules:
     # CHANGE THIS LINE: Use your actual Minikube IP here
-    - host: inventory.192.168.49.2.nip.io
+    - host: 10.108.70.227
       http:
         paths:
           - path: /
