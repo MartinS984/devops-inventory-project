@@ -39,7 +39,8 @@ spec:
               mountPath: /var/lib/postgresql/data
       volumes:
         - name: db-data
-          emptyDir: {} # WARNING: Data is lost if Pod restarts. Good for testing only.
+          persistentVolumeClaim:
+            claimName: postgres-pvc
 
 ---
 
